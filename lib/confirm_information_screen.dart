@@ -11,6 +11,11 @@ class ConfirmInformationScreen extends StatefulWidget {
 class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Confirme as informações")));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Confirme as informações"),
+      ),
+      
+    );
   }
 }

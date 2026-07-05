@@ -10,6 +10,11 @@ class AgendaScreenSelect extends StatefulWidget {
 class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Selecione a data e hora")));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Selecione a data e hora"),
+      ),
+
+    );
   }
 }

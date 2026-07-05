@@ -11,7 +11,8 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Página Principal do Funcionário")),
+      appBar: AppBar(title: Text("Página Principal do Funcionário"),
+      ),
     );
   }
 }

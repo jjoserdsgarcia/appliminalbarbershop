@@ -2,6 +2,7 @@
 import 'package:appliminalbarbershop/agenda_screen_register.dart';
 import 'package:appliminalbarbershop/home_screen_employee.dart';
 import 'package:appliminalbarbershop/service_screen_register.dart';
+import 'package:appliminalbarbershop/services_showroom.dart';
 import 'package:flutter/material.dart';
 
 class LateralMenuEmployee extends StatelessWidget {
@@ -59,7 +60,7 @@ class LateralMenuEmployee extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return ServiceScreenRegister();
+                    return ServicesScreen();
                   },
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:appliminalbarbershop/widget_draweradmin.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenEmployee extends StatefulWidget {
@@ -12,7 +13,9 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Página Principal do Funcionário"),
+
       ),
+      drawer: LateralMenuEmployee(),
     );
   }
 }

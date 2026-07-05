@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ServicesScreenSelect extends StatefulWidget {
-  const ServicesScreenSelect({super.key});
+  const ServicesScreenSelect({super.key, required this.professionalName, required this.professionalId});
+
+  final String professionalName;
+  final int professionalId;
 
   @override
   State<ServicesScreenSelect> createState() => _ServicesScreenSelectState();
@@ -22,7 +25,7 @@ List<ServiceClass> services = [];
     searchServices();
   }
 
-  void searchServices() async {
+   void searchServices() async {
     final supabase = Supabase.instance.client;
     final servicesSupabase = await supabase
         .from("service") //
@@ -42,17 +45,20 @@ List<ServiceClass> services = [];
   }
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Serviços Disponíveis"),
-      ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 500,
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Serviços Disponíveis"),
+    ),
+    body: Column(
+      children: [
+        ListTile(
+          title: Text(
+            "Profissional: ${widget.professionalName} - ID: ${widget.professionalId}",
           ),
+        ),
+        Expanded(
           child: ListView.builder(
             itemCount: services.length,
             itemBuilder: (context, index) {
@@ -61,9 +67,12 @@ List<ServiceClass> services = [];
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) {
-                        return AgendaScreenSelect();
-                      },
+                      builder: (context) => AgendaScreenSelect(
+                        professionalName: widget.professionalName,
+                        professionalId: widget.professionalId,
+                        serviceName: currentService.name,
+                        serviceId: currentService.id,
+                      ),
                     ),
                   );
                 },
@@ -79,7 +88,8 @@ List<ServiceClass> services = [];
             },
           ),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }

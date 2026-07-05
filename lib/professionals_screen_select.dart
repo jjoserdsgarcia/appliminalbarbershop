@@ -48,7 +48,8 @@ void searchProfessionals() async {
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: 500,
+            maxWidth: 300,
+           
           ),
           child: ListView.builder(
             itemCount: professionals.length,
@@ -59,7 +60,7 @@ void searchProfessionals() async {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return ServicesScreenSelect();
+                        return ServicesScreenSelect(professionalName: currentProfessionals.fullName, professionalId: currentProfessionals.id);
                       },
                     ),
                   );

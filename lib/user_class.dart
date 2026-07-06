@@ -4,6 +4,7 @@ class UserClass {
   final bool isEmployee;
   final String password;
   final String fullName;
+  final String description;
 
   UserClass({
     required this.id,
@@ -11,5 +12,6 @@ class UserClass {
     required this.isEmployee,
     required this.password,
     required this.fullName,
+    required this.description,
   });
 }

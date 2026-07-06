@@ -5,7 +5,6 @@ import 'package:appliminalbarbershop/service_class.dart';
 import 'package:appliminalbarbershop/service_screen_register.dart';
 import 'package:appliminalbarbershop/widget_draweradmin.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ServicesScreen extends StatefulWidget {

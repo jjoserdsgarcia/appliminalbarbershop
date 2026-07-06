@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AgendaScreenSelect extends StatefulWidget {
-  const AgendaScreenSelect({super.key, required this.professionalName, required this.professionalId, required this.serviceName, required this.serviceId});
+  const AgendaScreenSelect({
+    super.key,
+    required this.professionalName,
+    required this.professionalId,
+    required this.serviceName,
+    required this.serviceId,
+  });
 
   final String professionalName;
   final int professionalId;
@@ -14,16 +20,23 @@ class AgendaScreenSelect extends StatefulWidget {
 
 class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Selecione a data e hora"),
       ),
-      body: Column(children: [
-        Text("Profissional: ${widget.professionalName} - ID: ${widget.professionalId}"),
-        Text("Serviço: ${widget.serviceName} - ID: ${widget.serviceId}"),
-      ],)
-
+      body: Column(
+        children: [
+          Text("Profissional: ${widget.professionalName} - ID: ${widget.professionalId}"),
+          Text("Serviço: ${widget.serviceName} - ID: ${widget.serviceId}"),
+        ],
+      ),
     );
   }
 }

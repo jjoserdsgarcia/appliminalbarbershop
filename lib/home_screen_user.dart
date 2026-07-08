@@ -10,21 +10,17 @@ class HomeScreenUser extends StatefulWidget {
   State<HomeScreenUser> createState() => _HomeScreenUserState();
 }
 
-
-
-
 class _HomeScreenUserState extends State<HomeScreenUser> {
- 
-List<ServiceClass> cortes = [];
+  List<ServiceClass> cortes = [];
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     searchServices();
   }
 
-void searchServices() async {
+  void searchServices() async {
     final supabase = Supabase.instance.client;
     final servicesSupabase = await supabase
         .from("service") //
@@ -37,14 +33,12 @@ void searchServices() async {
             name: e["name"],
             description: e["description"],
             price: (e["price"] / 100),
+            active: e["active"],
           );
         },
       ).toList();
     });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +87,6 @@ void searchServices() async {
               );
         },
       ),
-   );
+    );
   }
 }

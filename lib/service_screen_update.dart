@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class RegisterServicesScreen extends StatefulWidget {
-  const RegisterServicesScreen({super.key, this.serviceName, this.serviceDescription, this.servicePrice, this.serviceActive, this.serviceId});
+class UpdateServicesScreen extends StatefulWidget {
+  const UpdateServicesScreen({super.key, this.serviceName, this.serviceDescription, this.servicePrice, this.serviceActive, this.serviceId});
 
   final String? serviceName;
   final String? serviceDescription;
@@ -13,26 +13,36 @@ class RegisterServicesScreen extends StatefulWidget {
   final int? serviceId;
 
   @override
-  State<RegisterServicesScreen> createState() => _RegisterServicesScreenState();
+  State<UpdateServicesScreen> createState() => _UpdateServicesScreenState();
 }
 
-class _RegisterServicesScreenState extends State<RegisterServicesScreen> {
+class _UpdateServicesScreenState extends State<UpdateServicesScreen> {
   List<ServiceClass> services = [];
   final formKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController();
+  late final TextEditingController nameController;
 
-  final priceController = TextEditingController();
+  late final TextEditingController priceController;
 
-  final descriptionController = TextEditingController();
+  late final TextEditingController descriptionController;
+
+  bool isLoading = false;
 
   bool ativo = true;
+
+  initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.serviceName ?? '');
+    priceController = TextEditingController(text: widget.servicePrice?.toString() ?? '');
+    descriptionController = TextEditingController(text: widget.serviceDescription ?? '');
+    ativo = widget.serviceActive ?? true;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registrar Serviço"),
+        title: const Text("Editar Serviço"),
       ),
 
       body: Padding(
@@ -100,17 +110,21 @@ class _RegisterServicesScreenState extends State<RegisterServicesScreen> {
 
               ElevatedButton(
                 onPressed: () async {
-                  // Verifica se todos os campos estão válidos
+                  setState(() {
+                    isLoading = true;
+                  });
                   if (formKey.currentState!.validate()) {
                     try {
                       final supabase = Supabase.instance.client;
-
-                      await supabase.from('service').insert({
-                        'name': nameController.text,
-                        'description': descriptionController.text,
-                        'price': priceController.text,
-                        'active': ativo,
-                      });
+                      final servicesSupabase = await supabase
+                          .from("service") //
+                          .update({
+                            "name": nameController.text,
+                            "description": descriptionController.text,
+                            "price": (double.parse(priceController.text) * 100).toInt(),
+                            "active": ativo,
+                          })
+                          .eq("id", widget.serviceId.toString());
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -132,6 +146,7 @@ class _RegisterServicesScreenState extends State<RegisterServicesScreen> {
                         );
                       }
                     } catch (e) {
+                      print(e);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
@@ -144,7 +159,7 @@ class _RegisterServicesScreenState extends State<RegisterServicesScreen> {
                   }
                 },
 
-                child: const Text("Registrar"),
+                child: const Text("Editar"),
               ),
             ],
           ),

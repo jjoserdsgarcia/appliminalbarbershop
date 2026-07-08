@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AgendaScreenRegister extends StatefulWidget {
   const AgendaScreenRegister({super.key});
@@ -9,12 +8,10 @@ class AgendaScreenRegister extends StatefulWidget {
 }
 
 class _AgendaScreenRegisterState extends State<AgendaScreenRegister> {
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
-
-  void registerSchedule() async {
-    final supabase = Supabase.instance.client;
-  }
+  final formKey = GlobalKey<FormState>();
+  final descriptionController = TextEditingController();
+  final startTimeController = TextEditingController();
+  final endTimeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

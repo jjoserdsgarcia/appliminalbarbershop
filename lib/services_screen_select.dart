@@ -14,9 +14,7 @@ class ServicesScreenSelect extends StatefulWidget {
 }
 
 class _ServicesScreenSelectState extends State<ServicesScreenSelect> {
-
-
-List<ServiceClass> services = [];
+  List<ServiceClass> services = [];
 
   @override
   void initState() {
@@ -25,7 +23,7 @@ List<ServiceClass> services = [];
     searchServices();
   }
 
-   void searchServices() async {
+  void searchServices() async {
     final supabase = Supabase.instance.client;
     final servicesSupabase = await supabase
         .from("service") //
@@ -38,58 +36,58 @@ List<ServiceClass> services = [];
             name: e["name"],
             description: e["description"],
             price: (e["price"] / 100),
+            active: e["active"],
           );
         },
       ).toList();
     });
   }
 
-
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text("Serviços Disponíveis"),
-    ),
-    body: Column(
-      children: [
-        ListTile(
-          title: Text(
-            "Profissional: ${widget.professionalName} - ID: ${widget.professionalId}",
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Serviços Disponíveis"),
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            title: Text(
+              "Profissional: ${widget.professionalName} - ID: ${widget.professionalId}",
+            ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: services.length,
-            itemBuilder: (context, index) {
-              final ServiceClass currentService = services[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AgendaScreenSelect(
-                        professionalName: widget.professionalName,
-                        professionalId: widget.professionalId,
-                        serviceName: currentService.name,
-                        serviceId: currentService.id,
+          Expanded(
+            child: ListView.builder(
+              itemCount: services.length,
+              itemBuilder: (context, index) {
+                final ServiceClass currentService = services[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AgendaScreenSelect(
+                          professionalName: widget.professionalName,
+                          professionalId: widget.professionalId,
+                          serviceName: currentService.name,
+                          serviceId: currentService.id,
+                        ),
                       ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 8.0,
+                    child: ListTile(
+                      leading: Icon(Icons.sports_basketball),
+                      title: Text(currentService.description),
+                      subtitle: Text("Preço: ${currentService.price}"),
                     ),
-                  );
-                },
-                child: Card(
-                  elevation: 8.0,
-                  child: ListTile(
-                    leading: Icon(Icons.sports_basketball),
-                    title: Text(currentService.description),
-                    subtitle: Text("Preço: ${currentService.price}"),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }

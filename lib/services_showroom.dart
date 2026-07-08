@@ -1,8 +1,6 @@
-
-
-
 import 'package:appliminalbarbershop/service_class.dart';
 import 'package:appliminalbarbershop/service_screen_register.dart';
+import 'package:appliminalbarbershop/service_screen_update.dart';
 import 'package:appliminalbarbershop/widget_draweradmin.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -37,6 +35,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
             name: e["name"],
             description: e["description"],
             price: (e["price"] / 100),
+            active: e["active"],
           );
         },
       ).toList();
@@ -59,12 +58,35 @@ class _ServicesScreenState extends State<ServicesScreen> {
             itemCount: services.length,
             itemBuilder: (context, index) {
               final ServiceClass currentService = services[index];
-              return Card(
-                elevation: 8.0,
-                child: ListTile(
-                  leading: Icon(Icons.shop),
-                  title: Text(currentService.name),
-                  subtitle: Text("Preço: ${currentService.price}"),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(
+                        MaterialPageRoute(
+                          builder: ((context) {
+                            return UpdateServicesScreen(
+                              serviceId: currentService.id,
+                              serviceName: currentService.name,
+                              serviceDescription: currentService.description,
+                              servicePrice: currentService.price,
+                              serviceActive: currentService.active,
+                            );
+                          }),
+                        ),
+                      )
+                      .then(
+                        (value) {
+                          searchServices();
+                        },
+                      );
+                },
+                child: Card(
+                  elevation: 8.0,
+                  child: ListTile(
+                    leading: Icon(Icons.shop),
+                    title: Text(currentService.name),
+                    subtitle: Text("Preço: ${currentService.price}"),
+                  ),
                 ),
               );
             },

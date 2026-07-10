@@ -67,10 +67,6 @@ class _ServicesScreenSelectState extends State<ServicesScreenSelect> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => AgendaScreenRegister(
-                          professionalName: widget.professionalName,
-                          professionalId: widget.professionalId,
-                          serviceName: currentService.name,
-                          serviceId: currentService.id,
                           descricaoDia: "",
                           employeeSchedule: null,
                         ),

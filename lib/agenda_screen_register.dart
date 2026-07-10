@@ -4,20 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AgendaScreenRegister extends StatefulWidget {
-  const AgendaScreenRegister({
-    super.key,
-    required this.descricaoDia,
-    required this.employeeSchedule,
-    required this.professionalName,
-    required this.professionalId,
-    required this.serviceName,
-    required this.serviceId,
-  });
+  const AgendaScreenRegister({super.key, required this.descricaoDia, required this.employeeSchedule});
 
-  final String professionalName;
-  final int professionalId;
-  final String serviceName;
-  final int serviceId;
   final String descricaoDia;
   final ScheduleClass? employeeSchedule;
 
@@ -200,7 +188,25 @@ class _AgendaScreenRegisterState extends State<AgendaScreenRegister> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (widget.employeeSchedule != null) {
+                final supabase = Supabase.instance.client;
+                await supabase
+                    .from("schedule_professional")
+                    .update({
+                      "start_time": startTime,
+                      "end_time": endTime,
+                    })
+                    .eq("id", widget.employeeSchedule!.id!);
+              } else {
+                final supabase = Supabase.instance.client;
+                final esportesSupabase = await supabase.from("schedule_professional").insert({
+                  'description': widget.descricaoDia,
+                  'start_time': startTime,
+                  'end_time': endTime,
+                });
+              }
+            },
             child: Text('Salvar'),
           ),
         ],

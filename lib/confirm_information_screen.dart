@@ -4,8 +4,7 @@ class ConfirmInformationScreen extends StatefulWidget {
   const ConfirmInformationScreen({super.key});
 
   @override
-  State<ConfirmInformationScreen> createState() =>
-      _ConfirmInformationScreenState();
+  State<ConfirmInformationScreen> createState() => _ConfirmInformationScreenState();
 }
 
 class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
@@ -15,7 +14,6 @@ class _ConfirmInformationScreenState extends State<ConfirmInformationScreen> {
       appBar: AppBar(
         title: Text("Confirme as informações"),
       ),
-      
     );
   }
 }

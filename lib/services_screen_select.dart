@@ -1,3 +1,4 @@
+import 'package:appliminalbarbershop/agenda_screen_register.dart';
 import 'package:appliminalbarbershop/agenda_screen_select.dart';
 import 'package:appliminalbarbershop/service_class.dart';
 import 'package:flutter/material.dart';
@@ -65,11 +66,13 @@ class _ServicesScreenSelectState extends State<ServicesScreenSelect> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => AgendaScreenSelect(
+                        builder: (context) => AgendaScreenRegister(
                           professionalName: widget.professionalName,
                           professionalId: widget.professionalId,
                           serviceName: currentService.name,
                           serviceId: currentService.id,
+                          descricaoDia: "",
+                          employeeSchedule: null,
                         ),
                       ),
                     );

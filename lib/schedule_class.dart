@@ -1,8 +1,8 @@
 class ScheduleClass {
   final String id;
   final String description;
-  final String startTime;
-  final String endTime;
+  final int startTime;
+  final int endTime;
 
   ScheduleClass({
     required this.id,

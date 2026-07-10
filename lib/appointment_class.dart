@@ -3,15 +3,15 @@ class AppointmentClass {
   final int professionalId;
   final int serviceId;
   final DateTime appointmentDate;
-  final String startTime;
-  final String endTime;
+  final int startTimeAppointment;
+  final int endTimeAppointment;
 
   AppointmentClass({
     required this.id,
     required this.professionalId,
     required this.serviceId,
     required this.appointmentDate,
-    required this.startTime,
-    required this.endTime,
+    required this.startTimeAppointment,
+    required this.endTimeAppointment,
   });
 }

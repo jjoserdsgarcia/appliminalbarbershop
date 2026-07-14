@@ -39,120 +39,271 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Cadastro de usuário",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minWidth: 500,
-            maxWidth: 800,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                spacing: 16,
-                children: [
-                  TextFormField(
-                    controller: fullNameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Nome completo",
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Campo obrigatório!";
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: loginController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Login",
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Campo obrigatório!";
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Senha",
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              obscureText = !obscureText;
-                            });
-                          },
-                          icon: obscureText == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
-                        ),
-                      ),
-                    ),
-                    obscureText: obscureText,
-                    validator: passwordValidator,
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Stack(
+      children: [
 
-                    // obscuringCharacter: "#",
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        try {
-                          final supabase = Supabase.instance.client;
-                          await supabase.from('user').insert({
-                            'full_name': fullNameController.text,
-                            'login': loginController.text,
-                            'password': Utils.gerarMd5(passwordController.text),
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Cadastro realizado com sucesso!"),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                          Navigator.of(context).pop();
-                        } on PostgrestException catch (e) {
-                          if (e.code != null && e.code == "23505") {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Login já está em uso"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Falha ao realizar cadastro"),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      }
-                    },
-                    child: Text("Cadastrar"),
-                  ),
+        /// Background
+        Positioned.fill(
+          child: Image.asset(
+            "assets/images/barber_backrooms.jpg",
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        /// Escurece o fundo
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(.55),
+                  Colors.black.withOpacity(.85),
                 ],
               ),
             ),
           ),
         ),
+
+        Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              width: 450,
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(.78),
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: const Color(0xffD6B35A),
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.amber.withOpacity(.15),
+                    blurRadius: 30,
+                    spreadRadius: 3,
+                  ),
+                ],
+              ),
+
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+
+                    const Icon(
+                      Icons.content_cut,
+                      size: 65,
+                      color: Color(0xffD6B35A),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    const Text(
+                    "LIMINAL",
+                      style: TextStyle(
+                        color: Color(0xffD6B35A),
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 5,
+                      ),
+                    ),
+
+                    const Text(
+                      "BARBERSHOP",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        letterSpacing: 4,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Text(
+                      "Crie sua conta para agendar seus horários.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+
+                    const SizedBox(height: 35),
+
+                    //----------------------------------------
+                    // Login
+                    //----------------------------------------
+
+                    TextFormField(
+                      controller: loginController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: campo(
+                        "Usuário",
+                        Icons.account_circle_outlined,
+                      ),
+                      validator: (v) =>
+                          v!.isEmpty ? "Informe um usuário." : null,
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    //----------------------------------------
+                    // Senha
+                    //----------------------------------------
+
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: obscureText,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: campo(
+                        "Senha",
+                        Icons.lock_outline,
+                      ).copyWith(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: const Color(0xffD6B35A),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
+                      ),
+                      validator: passwordValidator,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    //----------------------------------------
+                    // Botão
+                    //----------------------------------------
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 55,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.app_registration),
+                        label: const Text(
+                          "CRIAR CONTA",
+                          style: TextStyle(
+                            fontSize: 17,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffD6B35A),
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            try {
+                              final supabase =
+                                  Supabase.instance.client;
+
+                              await supabase.from("user").insert({
+                                "full_name":
+                                    fullNameController.text,
+                                "login":
+                                    loginController.text,
+                                "password": Utils.gerarMd5(
+                                  passwordController.text,
+                                ),
+                              });
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      "Conta criada com sucesso!"),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+
+                              Navigator.pop(context);
+                            } on PostgrestException catch (e) {
+                              if (e.code == "23505") {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        "Usuário já existe."),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                        },
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Já possui conta? Entrar",
+                        style: TextStyle(
+                          color: Color(0xffD6B35A),
+                        ),
+                      ),
+                    ),
+
+                    const Divider(
+                      color: Color(0xffD6B35A),
+                      height: 35,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+InputDecoration campo(String texto, IconData icon) {
+  return InputDecoration(
+    labelText: texto,
+    labelStyle: const TextStyle(
+      color: Color(0xffD6B35A),
+    ),
+    prefixIcon: Icon(
+      icon,
+      color: const Color(0xffD6B35A),
+    ),
+    filled: true,
+    fillColor: Colors.black.withOpacity(.35),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: Color(0xffD6B35A),
       ),
-    );
-  }
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: Colors.amber,
+        width: 2,
+      ),
+    ),
+  );
+}
 }

@@ -34,12 +34,12 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
           children: [
             Text(
               widget.serviceDescription,
-              style: const TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 8),
             Text(
               'Preço: R\$ ${widget.servicePrice.toStringAsFixed(2)}',
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
           ],
         ),

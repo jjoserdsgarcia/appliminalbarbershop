@@ -1,4 +1,3 @@
-import 'package:appliminalbarbershop/agenda_screen_register.dart';
 import 'package:appliminalbarbershop/agenda_screen_select.dart';
 import 'package:appliminalbarbershop/service_class.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +19,10 @@ class ServicesScreenSelect extends StatefulWidget {
   final int professionalId;
 
   @override
-  State<ServicesScreenSelect> createState() =>
-      _ServicesScreenSelectState();
+  State<ServicesScreenSelect> createState() => _ServicesScreenSelectState();
 }
 
-class _ServicesScreenSelectState
-    extends State<ServicesScreenSelect> {
+class _ServicesScreenSelectState extends State<ServicesScreenSelect> {
   // Lista de serviços disponíveis
   List<ServiceClass> services = [];
 
@@ -41,8 +38,7 @@ class _ServicesScreenSelectState
   void searchServices() async {
     final supabase = Supabase.instance.client;
 
-    final servicesSupabase =
-        await supabase.from("service").select();
+    final servicesSupabase = await supabase.from("service").select();
 
     setState(() {
       services = servicesSupabase.map(
@@ -117,7 +113,6 @@ class _ServicesScreenSelectState
             //----------------------------------------------------
             // Card do barbeiro selecionado
             //----------------------------------------------------
-
             Container(
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(18),
@@ -125,8 +120,7 @@ class _ServicesScreenSelectState
               decoration: BoxDecoration(
                 color: const Color(0xFF1E1E1E),
 
-                borderRadius:
-                    BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(18),
 
                 border: Border.all(
                   color: const Color(0xFFD6B35A),
@@ -138,8 +132,7 @@ class _ServicesScreenSelectState
                   // Ícone do barbeiro
                   CircleAvatar(
                     radius: 28,
-                    backgroundColor:
-                        const Color(0xFFD6B35A),
+                    backgroundColor: const Color(0xFFD6B35A),
 
                     child: const Icon(
                       Icons.person,
@@ -151,8 +144,7 @@ class _ServicesScreenSelectState
 
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
                         const Text(
@@ -171,8 +163,7 @@ class _ServicesScreenSelectState
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontWeight:
-                                FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -191,19 +182,16 @@ class _ServicesScreenSelectState
             //----------------------------------------------------
             // Lista de serviços
             //----------------------------------------------------
-
             Expanded(
               child: ListView.builder(
-                padding:
-                    const EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
 
                 itemCount: services.length,
 
                 itemBuilder: (context, index) {
-                  final currentService =
-                      services[index];
+                  final currentService = services[index];
 
                   return GestureDetector(
                     // Ao selecionar um serviço,
@@ -212,47 +200,40 @@ class _ServicesScreenSelectState
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              AgendaScreenRegister(
-                            descricaoDia: "",
-                            employeeSchedule: null,
+                          builder: (context) => AgendaScreenSelect(
+                            professionalId: widget.professionalId,
+                            professionalName: widget.professionalName,
+                            serviceId: currentService.id,
+                            serviceDescription: currentService.description,
+                            servicePrice: currentService.price,
                           ),
                         ),
                       );
                     },
 
                     child: Container(
-                      margin:
-                          const EdgeInsets.only(
-                              bottom: 18),
+                      margin: const EdgeInsets.only(bottom: 18),
 
                       decoration: BoxDecoration(
-                        color:
-                            const Color(0xFF1E1E1E),
+                        color: const Color(0xFF1E1E1E),
 
-                        borderRadius:
-                            BorderRadius.circular(
-                                18),
+                        borderRadius: BorderRadius.circular(18),
 
                         border: Border.all(
-                          color: const Color(
-                              0xFFD6B35A),
+                          color: const Color(0xFFD6B35A),
                         ),
 
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black
-                                .withOpacity(.35),
+                            color: Colors.black.withOpacity(.35),
                             blurRadius: 10,
-                            offset:
-                                const Offset(0, 5),
+                            offset: const Offset(0, 5),
                           ),
                         ],
                       ),
 
                       child: ListTile(
-                        contentPadding:
-                            const EdgeInsets.all(18),
+                        contentPadding: const EdgeInsets.all(18),
 
                         // Ícone do serviço
                         leading: Container(
@@ -260,13 +241,9 @@ class _ServicesScreenSelectState
                           height: 60,
 
                           decoration: BoxDecoration(
-                            color:
-                                const Color(
-                                    0xFFD6B35A),
+                            color: const Color(0xFFD6B35A),
 
-                            borderRadius:
-                                BorderRadius
-                                    .circular(15),
+                            borderRadius: BorderRadius.circular(15),
                           ),
 
                           child: const Icon(
@@ -282,45 +259,34 @@ class _ServicesScreenSelectState
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 19,
-                            fontWeight:
-                                FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
 
                         // Informações adicionais
                         subtitle: Padding(
-                          padding:
-                              const EdgeInsets.only(
-                                  top: 8),
+                          padding: const EdgeInsets.only(top: 8),
 
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
                               // Preço
                               Text(
                                 "R\$ ${currentService.price.toStringAsFixed(2)}",
-                                style:
-                                    const TextStyle(
-                                  color: Color(
-                                      0xFFD6B35A),
+                                style: const TextStyle(
+                                  color: Color(0xFFD6B35A),
                                   fontSize: 18,
-                                  fontWeight:
-                                      FontWeight
-                                          .bold,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
 
-                              const SizedBox(
-                                  height: 5),
+                              const SizedBox(height: 5),
 
                               const Text(
                                 "Toque para escolher este serviço.",
                                 style: TextStyle(
-                                  color:
-                                      Colors.white60,
+                                  color: Colors.white60,
                                 ),
                               ),
                             ],
@@ -330,8 +296,7 @@ class _ServicesScreenSelectState
                         // Ícone indicando navegação
                         trailing: const Icon(
                           Icons.arrow_forward_ios,
-                          color:
-                              Color(0xFFD6B35A),
+                          color: Color(0xFFD6B35A),
                         ),
                       ),
                     ),

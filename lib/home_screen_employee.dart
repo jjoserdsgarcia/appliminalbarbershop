@@ -1,6 +1,7 @@
 import 'package:appliminalbarbershop/widget_draweradmin.dart';
 import 'package:flutter/material.dart';
 
+/// Tela inicial do funcionário
 class HomeScreenEmployee extends StatefulWidget {
   const HomeScreenEmployee({super.key});
 
@@ -9,95 +10,122 @@ class HomeScreenEmployee extends StatefulWidget {
 }
 
 class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    drawer: LateralMenuEmployee(),
-    backgroundColor: const Color(0xFF121212),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Menu lateral da aplicação
+      drawer: LateralMenuEmployee(),
 
-    appBar: AppBar(
-      elevation: 0,
-      backgroundColor: const Color(0xFF1C1C1C),
-      iconTheme: const IconThemeData(
-        color: Color(0xFFD6B35A),
-      ),
-      centerTitle: true,
-      title: const Text(
-        "LIMINAL BARBERSHOP",
-        style: TextStyle(
+      // Cor de fundo principal
+      backgroundColor: const Color(0xFF121212),
+
+      // Barra superior
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: const Color(0xFF1C1C1C),
+
+        // Cor do ícone do menu
+        iconTheme: const IconThemeData(
           color: Color(0xFFD6B35A),
-          fontWeight: FontWeight.bold,
-          letterSpacing: 2,
         ),
-      ),
-    ),
 
-    body: Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: const AssetImage(
-            "assets/images/barber_backrooms.jpg",
-          ),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black87,
-            BlendMode.darken,
+        // Centraliza o título
+        centerTitle: true,
+
+        // Nome da barbearia
+        title: const Text(
+          "LIMINAL BARBERSHOP",
+          style: TextStyle(
+            color: Color(0xFFD6B35A),
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2,
           ),
         ),
       ),
 
-      child: Center(
-        child: Container(
-          width: 650,
-          padding: const EdgeInsets.all(35),
+      // Corpo da tela
+      body: Container(
+        width: double.infinity,
 
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E1E1E).withOpacity(.92),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: const Color(0xFFD6B35A),
-              width: 1.5,
+        // Imagem de fundo da tela
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/barber_backrooms.jpg",
+            ),
+
+            // Faz a imagem ocupar toda a tela
+            fit: BoxFit.cover,
+
+            // Escurece a imagem para melhorar a leitura
+            colorFilter: ColorFilter.mode(
+              Colors.black87,
+              BlendMode.darken,
             ),
           ),
+        ),
 
-          child: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+        // Centraliza o painel
+        child: Center(
+          child: Container(
+            // Largura fixa do painel
+            width: 650,
 
-              Icon(
-                Icons.content_cut,
-                size: 80,
-                color: Color(0xFFD6B35A),
+            // Espaçamento interno
+            padding: const EdgeInsets.all(35),
+
+            // Estilo do painel
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E1E1E).withOpacity(.92),
+
+              borderRadius: BorderRadius.circular(20),
+
+              border: Border.all(
+                color: const Color(0xFFD6B35A),
+                width: 1.5,
               ),
+            ),
 
-              SizedBox(height: 25),
-
-              Text(
-                "Painel do Funcionário",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+            // Conteúdo do painel
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Ícone representando a barbearia
+                Icon(
+                  Icons.content_cut,
+                  size: 80,
+                  color: Color(0xFFD6B35A),
                 ),
-              ),
 
-              SizedBox(height: 15),
+                SizedBox(height: 25),
 
-              Text(
-                "Utilize o menu lateral para acessar os horários disponíveis, gerenciar os serviços e navegar pelas funcionalidades do sistema.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 16,
-                  height: 1.6,
+                // Título da tela
+                Text(
+                  "Painel do Funcionário",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+
+                SizedBox(height: 15),
+
+                // Texto explicativo
+                Text(
+                  "Utilize o menu lateral para acessar os horários disponíveis, gerenciar os serviços e navegar pelas funcionalidades do sistema.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    height: 1.6,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:appliminalbarbershop/home_screen_user.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,8 +21,7 @@ class AgendaScreenSelect extends StatefulWidget {
   final double servicePrice;
 
   @override
-  State<AgendaScreenSelect> createState() =>
-      _AgendaScreenSelectState();
+  State<AgendaScreenSelect> createState() => _AgendaScreenSelectState();
 }
 
 class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
@@ -200,8 +200,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
           .single();
 
       // A coluna id é int8 no Supabase.
-      final int appointmentId =
-          (result['id'] as num).toInt();
+      final int appointmentId = (result['id'] as num).toInt();
 
       if (!mounted) {
         return;
@@ -286,7 +285,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
           actions: [
             FilledButton(
               onPressed: () {
-                Navigator.pop(dialogContext);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreenUser()));
               },
               child: const Text('Concluir'),
             ),
@@ -361,33 +360,9 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
     return weekdays[date.weekday - 1];
   }
 
-  String? _validateName(String? value) {
-    if (value == null || value.trim().length < 3) {
-      return 'Informe o nome do cliente.';
-    }
-
-    return null;
-  }
-
-  String? _validatePhone(String? value) {
-    final phone = value?.replaceAll(
-          RegExp(r'[^0-9]'),
-          '',
-        ) ??
-        '';
-
-    if (phone.length < 10 || phone.length > 11) {
-      return 'Informe um telefone com DDD.';
-    }
-
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final price = widget.servicePrice
-        .toStringAsFixed(2)
-        .replaceAll('.', ',');
+    final price = widget.servicePrice.toStringAsFixed(2).replaceAll('.', ',');
 
     return Scaffold(
       appBar: AppBar(
@@ -424,8 +399,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
                     const Divider(),
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading:
-                          const Icon(Icons.attach_money),
+                      leading: const Icon(Icons.attach_money),
                       title: const Text('Preço'),
                       subtitle: Text('R\$ $price'),
                     ),
@@ -435,40 +409,6 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
             ),
 
             const SizedBox(height: 20),
-
-            const Text(
-              'Dados do cliente',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextFormField(
-              controller: _nameController,
-              validator: _validateName,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: 'Nome do cliente',
-                prefixIcon: Icon(Icons.person_outline),
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            TextFormField(
-              controller: _phoneController,
-              validator: _validatePhone,
-              keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(
-                labelText: 'Telefone com DDD',
-                prefixIcon: Icon(Icons.phone_outlined),
-                border: OutlineInputBorder(),
-              ),
-            ),
 
             const SizedBox(height: 25),
 
@@ -493,14 +433,12 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
                 itemBuilder: (context, index) {
                   final date = _dates[index];
 
-                  final selected =
-                      _selectedDate == date;
+                  final selected = _selectedDate == date;
 
                   return ChoiceChip(
                     selected: selected,
                     label: Column(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(_shortWeekday(date)),
                         Text(
@@ -546,8 +484,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
                 spacing: 8,
                 runSpacing: 8,
                 children: _times.map((time) {
-                  final occupied =
-                      _occupiedTimes.contains(time);
+                  final occupied = _occupiedTimes.contains(time);
 
                   return ChoiceChip(
                     selected: _selectedTime == time,
@@ -558,8 +495,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
                         ? null
                         : (selected) {
                             setState(() {
-                              _selectedTime =
-                                  selected ? time : null;
+                              _selectedTime = selected ? time : null;
                             });
                           },
                   );
@@ -571,8 +507,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
             SizedBox(
               height: 52,
               child: FilledButton.icon(
-                onPressed:
-                    _saving ? null : _saveAppointment,
+                onPressed: _saving ? null : _saveAppointment,
                 icon: _saving
                     ? const SizedBox(
                         width: 20,
@@ -585,9 +520,7 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
                         Icons.check_circle_outline,
                       ),
                 label: Text(
-                  _saving
-                      ? 'Registrando...'
-                      : 'Confirmar agendamento',
+                  _saving ? 'Registrando...' : 'Confirmar agendamento',
                 ),
               ),
             ),

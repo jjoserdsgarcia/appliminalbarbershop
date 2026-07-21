@@ -7,12 +7,10 @@ class RegisterAccountScreen extends StatefulWidget {
   const RegisterAccountScreen({super.key});
 
   @override
-  State<RegisterAccountScreen> createState() =>
-      _RegisterAccountScreenState();
+  State<RegisterAccountScreen> createState() => _RegisterAccountScreenState();
 }
 
-class _RegisterAccountScreenState
-    extends State<RegisterAccountScreen> {
+class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
   // Chave do formulário
   final formKey = GlobalKey<FormState>();
 
@@ -135,7 +133,7 @@ class _RegisterAccountScreenState
                       ),
 
                       const Text(
-                        "BARBERSHOP",
+                        "LIMINAL BARBERSHOP",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -160,7 +158,6 @@ class _RegisterAccountScreenState
                       //--------------------------------------------------
                       // Campo de usuário
                       //--------------------------------------------------
-
                       TextFormField(
                         controller: loginController,
 
@@ -173,10 +170,7 @@ class _RegisterAccountScreenState
                           Icons.account_circle_outlined,
                         ),
 
-                        validator: (v) =>
-                            v!.isEmpty
-                                ? "Informe um usuário."
-                                : null,
+                        validator: (v) => v!.isEmpty ? "Informe um usuário." : null,
                       ),
 
                       const SizedBox(height: 18),
@@ -184,7 +178,6 @@ class _RegisterAccountScreenState
                       //--------------------------------------------------
                       // Campo de senha
                       //--------------------------------------------------
-
                       TextFormField(
                         controller: passwordController,
                         obscureText: obscureText,
@@ -193,27 +186,24 @@ class _RegisterAccountScreenState
                           color: Colors.white,
                         ),
 
-                        decoration: campo(
-                          "Senha",
-                          Icons.lock_outline,
-                        ).copyWith(
-                          // Botão para mostrar/ocultar senha
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color:
-                                  const Color(0xffD6B35A),
+                        decoration:
+                            campo(
+                              "Senha",
+                              Icons.lock_outline,
+                            ).copyWith(
+                              // Botão para mostrar/ocultar senha
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  obscureText ? Icons.visibility_off : Icons.visibility,
+                                  color: const Color(0xffD6B35A),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    obscureText = !obscureText;
+                                  });
+                                },
+                              ),
                             ),
-                            onPressed: () {
-                              setState(() {
-                                obscureText =
-                                    !obscureText;
-                              });
-                            },
-                          ),
-                        ),
 
                         validator: passwordValidator,
                       ),
@@ -223,7 +213,6 @@ class _RegisterAccountScreenState
                       //--------------------------------------------------
                       // Botão de cadastro
                       //--------------------------------------------------
-
                       SizedBox(
                         width: double.infinity,
                         height: 55,
@@ -238,84 +227,56 @@ class _RegisterAccountScreenState
                             style: TextStyle(
                               fontSize: 17,
                               letterSpacing: 2,
-                              fontWeight:
-                                  FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
 
-                          style:
-                              ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color(
-                                    0xffD6B35A),
-                            foregroundColor:
-                                Colors.black,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xffD6B35A),
+                            foregroundColor: Colors.black,
 
-                            shape:
-                                RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
 
                           onPressed: () async {
                             // Valida os campos
-                            if (formKey.currentState!
-                                .validate()) {
+                            if (formKey.currentState!.validate()) {
                               try {
-                                final supabase =
-                                    Supabase.instance
-                                        .client;
+                                final supabase = Supabase.instance.client;
 
                                 // Insere o usuário no banco
-                                await supabase
-                                    .from("user")
-                                    .insert({
-                                  "full_name":
-                                      fullNameController
-                                          .text,
-                                  "login":
-                                      loginController
-                                          .text,
-                                  "password":
-                                      Utils.gerarMd5(
-                                    passwordController
-                                        .text,
+                                await supabase.from("user").insert({
+                                  "full_name": fullNameController.text,
+                                  "login": loginController.text,
+                                  "password": Utils.gerarMd5(
+                                    passwordController.text,
                                   ),
                                 });
 
                                 // Mensagem de sucesso
-                                ScaffoldMessenger.of(
-                                        context)
-                                    .showSnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
                                       "Conta criada com sucesso!",
                                     ),
-                                    backgroundColor:
-                                        Colors.green,
+                                    backgroundColor: Colors.green,
                                   ),
                                 );
 
                                 // Retorna para a tela de login
-                                Navigator.pop(
-                                    context);
+                                Navigator.pop(context);
                               }
-
                               // Usuário já existe
                               on PostgrestException catch (e) {
-                                if (e.code ==
-                                    "23505") {
-                                  ScaffoldMessenger.of(
-                                          context)
-                                      .showSnackBar(
+                                if (e.code == "23505") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
                                         "Usuário já existe.",
                                       ),
-                                      backgroundColor:
-                                          Colors.red,
+                                      backgroundColor: Colors.red,
                                     ),
                                   );
                                 }
@@ -335,8 +296,7 @@ class _RegisterAccountScreenState
                         child: const Text(
                           "Já possui conta? Entrar",
                           style: TextStyle(
-                            color:
-                                Color(0xffD6B35A),
+                            color: Color(0xffD6B35A),
                           ),
                         ),
                       ),
@@ -381,8 +341,7 @@ class _RegisterAccountScreenState
 
       // Borda quando o campo não está selecionado
       enabledBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12),
 
         borderSide: const BorderSide(
           color: Color(0xffD6B35A),
@@ -391,8 +350,7 @@ class _RegisterAccountScreenState
 
       // Borda quando o campo recebe foco
       focusedBorder: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12),
 
         borderSide: const BorderSide(
           color: Colors.amber,

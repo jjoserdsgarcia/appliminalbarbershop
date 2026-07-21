@@ -29,9 +29,7 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
     final supabase = Supabase.instance.client;
 
     // Consulta a tabela de serviços
-    final servicesSupabase = await supabase
-        .from("service")
-        .select();
+    final servicesSupabase = await supabase.from("service").select();
 
     // Atualiza a lista de serviços
     setState(() {
@@ -66,7 +64,7 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
         title: const Column(
           children: [
             Text(
-              "BACKROOM BARBERSHOP",
+              "LIMINAL BARBERSHOP",
               style: TextStyle(
                 color: Color(0xFFD6B35A),
                 fontSize: 20,
@@ -224,18 +222,18 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
           // Navega para a tela de seleção de profissionais
           Navigator.of(context)
               .push(
-            MaterialPageRoute(
-              builder: (context) {
-                return ProfessionalsScreenSelect();
-              },
-            ),
-          )
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProfessionalsScreenSelect();
+                  },
+                ),
+              )
               .then((value) {
-            // Recebe o retorno da próxima tela
-            if (value != null) {
-              print("value: $value");
-            }
-          });
+                // Recebe o retorno da próxima tela
+                if (value != null) {
+                  print("value: $value");
+                }
+              });
         },
       ),
     );

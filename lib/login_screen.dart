@@ -33,8 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-         
-
           /// Camada escura sobre o fundo para melhorar a leitura
           Positioned.fill(
             child: Container(
@@ -98,8 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           /// Logo
                           CircleAvatar(
                             radius: 45,
-                            backgroundColor:
-                                const Color(0xffE7D56D).withValues(alpha: .15),
+                            backgroundColor: const Color(0xffE7D56D).withValues(alpha: .15),
 
                             child: const Icon(
                               Icons.travel_explore,
@@ -112,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           /// Nome do sistema
                           const Text(
-                            "M.E.G",
+                            "LIMINAL BARBERSHOP",
                             style: TextStyle(
                               color: Color(0xffE7D56D),
                               fontSize: 34,
@@ -217,9 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Botão para mostrar ou ocultar senha
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  obscureText
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
+                                  obscureText ? Icons.visibility_off : Icons.visibility,
                                   color: Colors.greenAccent,
                                 ),
                                 onPressed: () {
@@ -317,21 +312,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                   // Usuário não encontrado
                                   if (usuarios.isEmpty) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text("ACCESS DENIED"),
+                                        content: Text("ACCESS DENIED"),
                                         backgroundColor: Colors.red,
                                       ),
                                     );
                                   } else {
                                     // Login realizado com sucesso
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text("ACCESS GRANTED"),
+                                        content: Text("ACCESS GRANTED"),
                                         backgroundColor: Colors.green,
                                       ),
                                     );
@@ -341,19 +332,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>
-                                              const HomeScreenEmployee(),
+                                          builder: (_) => const HomeScreenEmployee(),
                                         ),
                                       );
                                     }
-
                                     // Caso contrário, abre a tela do cliente
                                     else {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>
-                                              const HomeScreenUser(),
+                                          builder: (_) => const HomeScreenUser(),
                                         ),
                                       );
                                     }
@@ -371,8 +359,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) =>
-                                      const RegisterAccountScreen(),
+                                  builder: (_) => const RegisterAccountScreen(),
                                 ),
                               );
                             },

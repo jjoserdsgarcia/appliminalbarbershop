@@ -361,172 +361,357 @@ class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final price = widget.servicePrice.toStringAsFixed(2).replaceAll('.', ',');
+Widget build(BuildContext context) {
+  final price = widget.servicePrice.toStringAsFixed(2).replaceAll('.', ',');
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Agendamento'),
-        centerTitle: true,
+  return Scaffold(
+    backgroundColor: const Color(0xFF121212),
+
+    appBar: AppBar(
+      elevation: 0,
+      centerTitle: true,
+      backgroundColor: const Color(0xFF1A1A1A),
+      title: const Text(
+        "AGENDAMENTO",
+        style: TextStyle(
+          color: Color(0xFFD6B35A),
+          fontWeight: FontWeight.bold,
+          letterSpacing: 2,
+        ),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.person),
-                      title: const Text('Profissional'),
-                      subtitle: Text(
-                        widget.professionalName,
-                      ),
+      iconTheme: const IconThemeData(
+        color: Color(0xFFD6B35A),
+      ),
+    ),
+
+    body: Form(
+      key: _formKey,
+      child: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E1E1E),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: const Color(0xFFD6B35A).withOpacity(.25),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.45),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                )
+              ],
+            ),
+
+            child: Column(
+              children: [
+
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD6B35A).withOpacity(.15),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const Divider(),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.content_cut),
-                      title: const Text('Serviço'),
-                      subtitle: Text(
-                        widget.serviceDescription,
-                      ),
+                    child: const Icon(
+                      Icons.person,
+                      color: Color(0xFFD6B35A),
                     ),
-                    const Divider(),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.attach_money),
-                      title: const Text('Preço'),
-                      subtitle: Text('R\$ $price'),
+                  ),
+                  title: const Text(
+                    "Profissional",
+                    style: TextStyle(
+                      color: Colors.white70,
                     ),
-                  ],
+                  ),
+                  subtitle: Text(
+                    widget.professionalName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              ),
+
+                const Divider(color: Colors.white24),
+
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD6B35A).withOpacity(.15),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.content_cut,
+                      color: Color(0xFFD6B35A),
+                    ),
+                  ),
+                  title: const Text(
+                    "Serviço",
+                    style: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                  subtitle: Text(
+                    widget.serviceDescription,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+
+                const Divider(color: Colors.white24),
+
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD6B35A).withOpacity(.15),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.attach_money,
+                      color: Color(0xFFD6B35A),
+                    ),
+                  ),
+                  title: const Text(
+                    "Preço",
+                    style: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "R\$ $price",
+                    style: const TextStyle(
+                      color: Color(0xFFD6B35A),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
+          ),
 
-            const SizedBox(height: 20),
+          const SizedBox(height: 30),
 
-            const SizedBox(height: 25),
-
-            const Text(
-              'Escolha o dia',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+          const Text(
+            "ESCOLHA O DIA",
+            style: TextStyle(
+              color: Color(0xFFD6B35A),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
             ),
+          ),
 
-            const SizedBox(height: 12),
+          const SizedBox(height: 15),
 
-            SizedBox(
-              height: 80,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: _dates.length,
-                separatorBuilder: (_, _) {
-                  return const SizedBox(width: 8);
-                },
-                itemBuilder: (context, index) {
-                  final date = _dates[index];
+          SizedBox(
+            height: 85,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: _dates.length,
+              separatorBuilder: (_, __) =>
+                  const SizedBox(width: 10),
+              itemBuilder: (context, index) {
 
-                  final selected = _selectedDate == date;
+                final date = _dates[index];
+                final selected = _selectedDate == date;
 
-                  return ChoiceChip(
-                    selected: selected,
-                    label: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                return ChoiceChip(
+                  selected: selected,
+                  backgroundColor: const Color(0xFF242424),
+                  selectedColor: const Color(0xFFD6B35A),
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+
+                  label: SizedBox(
+                    width: 48,
+                    child: Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center,
                       children: [
-                        Text(_shortWeekday(date)),
+
                         Text(
-                          date.day.toString(),
-                          style: const TextStyle(
-                            fontSize: 20,
+                          _shortWeekday(date),
+                          style: TextStyle(
+                            color: selected
+                                ? Colors.black
+                                : Colors.white70,
+                          ),
+                        ),
+
+                        const SizedBox(height: 4),
+
+                        Text(
+                          "${date.day}",
+                          style: TextStyle(
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
+                            color: selected
+                                ? Colors.black
+                                : Colors.white,
                           ),
                         ),
                       ],
                     ),
-                    onSelected: (_) {
-                      setState(() {
-                        _selectedDate = date;
-                        _selectedTime = null;
-                      });
+                  ),
 
-                      _loadOccupiedTimes();
-                    },
-                  );
-                },
-              ),
+                  onSelected: (_) {
+                    setState(() {
+                      _selectedDate = date;
+                      _selectedTime = null;
+                    });
+
+                    _loadOccupiedTimes();
+                  },
+                );
+              },
             ),
+          ),
 
-            const SizedBox(height: 25),
-
-            const Text(
-              'Escolha o horário',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+          const SizedBox(height: 30),
+                    const Text(
+            "ESCOLHA O HORÁRIO",
+            style: TextStyle(
+              color: Color(0xFFD6B35A),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
             ),
+          ),
 
-            const SizedBox(height: 12),
+          const SizedBox(height: 15),
 
-            if (_loading)
-              const Center(
-                child: CircularProgressIndicator(),
-              )
-            else
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: _times.map((time) {
-                  final occupied = _occupiedTimes.contains(time);
+          if (_loading)
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                  color: Color(0xFFD6B35A),
+                ),
+              ),
+            )
+          else
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: _times.map((time) {
+                final occupied = _occupiedTimes.contains(time);
 
-                  return ChoiceChip(
-                    selected: _selectedTime == time,
-                    label: Text(
-                      occupied ? '$time ocupado' : time,
+                return ChoiceChip(
+                  selected: _selectedTime == time,
+
+                  backgroundColor: const Color(0xFF242424),
+
+                  selectedColor: const Color(0xFFD6B35A),
+
+                  disabledColor:
+                      Colors.red.withOpacity(.25),
+
+                  side: BorderSide.none,
+
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(15),
+                  ),
+
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 6,
                     ),
-                    onSelected: occupied
-                        ? null
-                        : (selected) {
-                            setState(() {
-                              _selectedTime = selected ? time : null;
-                            });
-                          },
-                  );
-                }).toList(),
+                    child: Text(
+                      time,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: occupied
+                            ? Colors.redAccent
+                            : (_selectedTime == time
+                                ? Colors.black
+                                : Colors.white),
+                      ),
+                    ),
+                  ),
+
+                  onSelected: occupied
+                      ? null
+                      : (selected) {
+                          setState(() {
+                            _selectedTime =
+                                selected ? time : null;
+                          });
+                        },
+                );
+              }).toList(),
+            ),
+
+          const SizedBox(height: 40),
+
+          SizedBox(
+            width: double.infinity,
+            height: 60,
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    const Color(0xFFD6B35A),
+                foregroundColor: Colors.black,
+                elevation: 10,
+                shadowColor: Colors.amber,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(18),
+                ),
               ),
 
-            const SizedBox(height: 30),
+              onPressed:
+                  _saving ? null : _saveAppointment,
 
-            SizedBox(
-              height: 52,
-              child: FilledButton.icon(
-                onPressed: _saving ? null : _saveAppointment,
-                icon: _saving
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      )
-                    : const Icon(
-                        Icons.check_circle_outline,
+              icon: _saving
+                  ? const SizedBox(
+                      width: 22,
+                      height: 22,
+                      child:
+                          CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.black,
                       ),
-                label: Text(
-                  _saving ? 'Registrando...' : 'Confirmar agendamento',
+                    )
+                  : const Icon(
+                      Icons.check_circle,
+                    ),
+
+              label: Text(
+                _saving
+                    ? "Registrando..."
+                    : "Confirmar Agendamento",
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+
+          const SizedBox(height: 25),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
+}
+

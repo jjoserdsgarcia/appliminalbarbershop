@@ -76,7 +76,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
 
             // Estilo do painel
             decoration: BoxDecoration(
-              color: const Color(0xFF1E1E1E).withOpacity(.92),
+              color: const Color(0xFF1E1E1E).withValues(alpha: .92),
 
               borderRadius: BorderRadius.circular(20),
 

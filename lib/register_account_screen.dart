@@ -73,8 +73,8 @@ class _RegisterAccountScreenState
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(.55),
-                    Colors.black.withOpacity(.85),
+                    Colors.black.withValues(alpha: .55),
+                    Colors.black.withValues(alpha: .85),
                   ],
                 ),
               ),
@@ -91,7 +91,7 @@ class _RegisterAccountScreenState
                 padding: const EdgeInsets.all(30),
 
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(.78),
+                  color: Colors.black.withValues(alpha: .78),
 
                   borderRadius: BorderRadius.circular(25),
 
@@ -102,7 +102,7 @@ class _RegisterAccountScreenState
 
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.amber.withOpacity(.15),
+                      color: Colors.amber.withValues(alpha: .15),
                       blurRadius: 30,
                       spreadRadius: 3,
                     ),
@@ -377,7 +377,7 @@ class _RegisterAccountScreenState
       ),
 
       filled: true,
-      fillColor: Colors.black.withOpacity(.35),
+      fillColor: Colors.black.withValues(alpha: .35),
 
       // Borda quando o campo não está selecionado
       enabledBorder: OutlineInputBorder(

@@ -100,7 +100,7 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
 
             // Escurece a imagem para destacar o conteúdo
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(.82),
+              Colors.black.withValues(alpha: .82),
               BlendMode.darken,
             ),
           ),
@@ -134,7 +134,7 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
 
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(.35),
+                        color: Colors.black.withValues(alpha: .35),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       ),

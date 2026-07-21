@@ -111,7 +111,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
 
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.82),
+              color: Colors.black.withValues(alpha: 0.82),
             ),
           ),
 
@@ -175,7 +175,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                       decoration: BoxDecoration(
                         color:
                             const Color(0xFF1E1E1E)
-                                .withOpacity(0.92),
+                                .withValues(alpha: 0.92),
 
                         borderRadius:
                             BorderRadius.circular(
@@ -189,7 +189,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black
-                                .withOpacity(.45),
+                                .withValues(alpha: .45),
                             blurRadius: 12,
                             offset:
                                 const Offset(0, 5),

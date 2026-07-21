@@ -122,7 +122,7 @@ class _ProfessionalsScreenSelectState
 
             // Escurece a imagem para melhorar a leitura
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(.82),
+              Colors.black.withValues(alpha: .82),
               BlendMode.darken,
             ),
           ),
@@ -214,7 +214,7 @@ class _ProfessionalsScreenSelectState
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black
-                                  .withOpacity(.35),
+                                  .withValues(alpha: .35),
                               blurRadius: 10,
                               offset: const Offset(0, 5),
                             ),

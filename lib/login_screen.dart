@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(.45),
-                    Colors.black.withOpacity(.75),
+                    Colors.black.withValues(alpha: .45),
+                    Colors.black.withValues(alpha: .75),
                   ],
                 ),
               ),
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(30),
 
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.75),
+                      color: Colors.black.withValues(alpha: .75),
 
                       borderRadius: BorderRadius.circular(20),
 
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.yellow.withOpacity(.20),
+                          color: Colors.yellow.withValues(alpha: .20),
                           blurRadius: 30,
                           spreadRadius: 5,
                         ),
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           CircleAvatar(
                             radius: 45,
                             backgroundColor:
-                                const Color(0xffE7D56D).withOpacity(.15),
+                                const Color(0xffE7D56D).withValues(alpha: .15),
 
                             child: const Icon(
                               Icons.travel_explore,
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
 
                               filled: true,
-                              fillColor: Colors.black.withOpacity(.45),
+                              fillColor: Colors.black.withValues(alpha: .45),
 
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
 
                               filled: true,
-                              fillColor: Colors.black.withOpacity(.45),
+                              fillColor: Colors.black.withValues(alpha: .45),
 
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),

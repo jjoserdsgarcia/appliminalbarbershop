@@ -112,7 +112,7 @@ class _UpdateServicesScreenState
 
             // Escurece a imagem
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(.85),
+              Colors.black.withValues(alpha: .85),
               BlendMode.darken,
             ),
           ),
@@ -272,7 +272,7 @@ class _UpdateServicesScreenState
                         ),
 
                         child: SwitchListTile(
-                          activeColor:
+                          activeThumbColor:
                               const Color(
                                   0xFFD6B35A),
 

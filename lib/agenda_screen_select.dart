@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AgendaScreenSelect extends StatefulWidget {
   const AgendaScreenSelect({
@@ -21,26 +22,22 @@ class AgendaScreenSelect extends StatefulWidget {
 }
 
 class _AgendaScreenSelectState extends State<AgendaScreenSelect> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.professionalName),
+        title: const Text('Agendamento'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              widget.serviceDescription,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Preço: R\$ ${widget.servicePrice.toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 16),
-            ),
+            Text('Profissional: ${widget.professionalName}'),
+            Text('Serviço: ${widget.serviceDescription}'),
+            Text('Preço: R\$ ${widget.servicePrice.toStringAsFixed(2)}'),
+            
           ],
         ),
       ),

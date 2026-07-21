@@ -29,8 +29,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   void searchServices() async {
     final supabase = Supabase.instance.client;
 
-    final servicesSupabase =
-        await supabase.from("service").select();
+    final servicesSupabase = await supabase.from("service").select();
 
     setState(() {
       services = servicesSupabase.map(
@@ -70,7 +69,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "BACKROOM BARBERSHOP",
+              "LIMINAL BARBERSHOP",
               style: TextStyle(
                 color: Color(0xFFD6B35A),
                 fontWeight: FontWeight.bold,
@@ -97,7 +96,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
           //--------------------------------------------------
           // Imagem de fundo
           //--------------------------------------------------
-
           Positioned.fill(
             child: Image.asset(
               "assets/images/barber_backrooms.jpg",
@@ -108,7 +106,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
           //--------------------------------------------------
           // Camada escura sobre a imagem
           //--------------------------------------------------
-
           Positioned.fill(
             child: Container(
               color: Colors.black.withValues(alpha: 0.82),
@@ -118,11 +115,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
           //--------------------------------------------------
           // Lista de serviços
           //--------------------------------------------------
-
           Center(
             child: ConstrainedBox(
-              constraints:
-                  const BoxConstraints(maxWidth: 750),
+              constraints: const BoxConstraints(maxWidth: 750),
 
               child: ListView.builder(
                 padding: const EdgeInsets.all(20),
@@ -130,38 +125,31 @@ class _ServicesScreenState extends State<ServicesScreen> {
                 itemCount: services.length,
 
                 itemBuilder: (context, index) {
-                  final currentService =
-                      services[index];
+                  final currentService = services[index];
 
                   return GestureDetector(
                     // Abre a tela de edição
                     onTap: () {
                       Navigator.of(context)
                           .push(
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              UpdateServicesScreen(
-                            serviceId:
-                                currentService.id,
+                            MaterialPageRoute(
+                              builder: (_) => UpdateServicesScreen(
+                                serviceId: currentService.id,
 
-                            serviceName:
-                                currentService.name,
+                                serviceName: currentService.name,
 
-                            serviceDescription:
-                                currentService
-                                    .description,
+                                serviceDescription: currentService.description,
 
-                            servicePrice:
-                                currentService.price,
+                                servicePrice: currentService.price,
 
-                            serviceActive:
-                                currentService.active,
-                          ),
-                        ),
-                      ).then((_) {
-                        // Atualiza a lista ao retornar
-                        searchServices();
-                      });
+                                serviceActive: currentService.active,
+                              ),
+                            ),
+                          )
+                          .then((_) {
+                            // Atualiza a lista ao retornar
+                            searchServices();
+                          });
                     },
 
                     child: Container(
@@ -169,30 +157,22 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         bottom: 18,
                       ),
 
-                      padding:
-                          const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(18),
 
                       decoration: BoxDecoration(
-                        color:
-                            const Color(0xFF1E1E1E)
-                                .withValues(alpha: 0.92),
+                        color: const Color(0xFF1E1E1E).withValues(alpha: 0.92),
 
-                        borderRadius:
-                            BorderRadius.circular(
-                                18),
+                        borderRadius: BorderRadius.circular(18),
 
                         border: Border.all(
-                          color: const Color(
-                              0xFFD6B35A),
+                          color: const Color(0xFFD6B35A),
                         ),
 
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black
-                                .withValues(alpha: .45),
+                            color: Colors.black.withValues(alpha: .45),
                             blurRadius: 12,
-                            offset:
-                                const Offset(0, 5),
+                            offset: const Offset(0, 5),
                           ),
                         ],
                       ),
@@ -202,20 +182,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
                           //--------------------------------------------------
                           // Ícone do serviço
                           //--------------------------------------------------
-
                           Container(
                             width: 65,
                             height: 65,
 
                             decoration: BoxDecoration(
-                              color:
-                                  const Color(
-                                      0xFFD6B35A),
+                              color: const Color(0xFFD6B35A),
 
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(
-                                          15),
+                              borderRadius: BorderRadius.circular(15),
                             ),
 
                             child: const Icon(
@@ -230,57 +204,41 @@ class _ServicesScreenState extends State<ServicesScreen> {
                           //--------------------------------------------------
                           // Informações do serviço
                           //--------------------------------------------------
-
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment
-                                      .start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
 
                               children: [
                                 // Nome
                                 Text(
                                   currentService.name,
-                                  style:
-                                      const TextStyle(
-                                    color:
-                                        Colors.white,
+                                  style: const TextStyle(
+                                    color: Colors.white,
                                     fontSize: 20,
-                                    fontWeight:
-                                        FontWeight
-                                            .bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
 
-                                const SizedBox(
-                                    height: 8),
+                                const SizedBox(height: 8),
 
                                 // Descrição
                                 Text(
-                                  currentService
-                                      .description,
-                                  style:
-                                      const TextStyle(
-                                    color: Colors
-                                        .white70,
+                                  currentService.description,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
                                     fontSize: 15,
                                   ),
                                 ),
 
-                                const SizedBox(
-                                    height: 12),
+                                const SizedBox(height: 12),
 
                                 // Preço
                                 Text(
                                   "R\$ ${currentService.price.toStringAsFixed(2)}",
-                                  style:
-                                      const TextStyle(
-                                    color: Color(
-                                        0xFFD6B35A),
+                                  style: const TextStyle(
+                                    color: Color(0xFFD6B35A),
                                     fontSize: 18,
-                                    fontWeight:
-                                        FontWeight
-                                            .bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
@@ -290,11 +248,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
                           //--------------------------------------------------
                           // Ícone de edição
                           //--------------------------------------------------
-
                           const Icon(
                             Icons.edit_rounded,
-                            color:
-                                Color(0xFFD6B35A),
+                            color: Color(0xFFD6B35A),
                             size: 28,
                           ),
                         ],
@@ -311,11 +267,8 @@ class _ServicesScreenState extends State<ServicesScreen> {
       //--------------------------------------------------
       // Botão para cadastrar novo serviço
       //--------------------------------------------------
-
-      floatingActionButton:
-          FloatingActionButton.extended(
-        backgroundColor:
-            const Color(0xFFD6B35A),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: const Color(0xFFD6B35A),
 
         foregroundColor: Colors.black,
 
@@ -331,15 +284,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
         onPressed: () {
           Navigator.of(context)
               .push(
-            MaterialPageRoute(
-              builder: (_) =>
-                  const RegisterServicesScreen(),
-            ),
-          )
+                MaterialPageRoute(
+                  builder: (_) => const RegisterServicesScreen(),
+                ),
+              )
               .then((_) {
-            // Atualiza a lista após cadastrar
-            searchServices();
-          });
+                // Atualiza a lista após cadastrar
+                searchServices();
+              });
         },
       ),
     );

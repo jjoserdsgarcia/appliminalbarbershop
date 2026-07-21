@@ -112,13 +112,18 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                 SizedBox(height: 15),
 
                 // Texto explicativo
-                Text(
-                  "Utilize o menu lateral para acessar os horários disponíveis, gerenciar os serviços e navegar pelas funcionalidades do sistema.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                    height: 1.6,
+                Card(
+                  color: Color(0xFF1C1C1C),
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Text(
+                      "Bem-vindo ao painel do funcionário da Liminal Barbershop! Aqui você pode gerenciar seus horários, visualizar agendamentos e muito mais. Use o menu lateral para navegar pelas diferentes funcionalidades.",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],

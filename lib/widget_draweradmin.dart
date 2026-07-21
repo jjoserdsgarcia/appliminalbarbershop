@@ -102,27 +102,7 @@ Widget build(BuildContext context) {
           },
         ),
 
-        ListTile(
-          leading: const Icon(
-            Icons.schedule,
-            color: Color(0xFFD6B35A),
-          ),
-          title: const Text(
-            "Horários Disponíveis",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => AgendaScreenRegisterAdmin(),
-              ),
-            );
-          },
-        ),
+      
 
         ListTile(
           leading: const Icon(

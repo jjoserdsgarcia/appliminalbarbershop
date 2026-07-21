@@ -55,13 +55,6 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          /// Imagem de fundo
-          Positioned.fill(
-            child: Image.asset(
-              "assets/images/barber_backrooms.jpg",
-              fit: BoxFit.cover,
-            ),
-          ),
 
           /// Camada escura sobre a imagem
           Positioned.fill(

@@ -1,5 +1,6 @@
 import 'package:appliminalbarbershop/widget_draweradmin.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Tela inicial do funcionário
 class HomeScreenEmployee extends StatefulWidget {
@@ -10,29 +11,52 @@ class HomeScreenEmployee extends StatefulWidget {
 }
 
 class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
+  final SupabaseClient supabase = Supabase.instance.client;
+
+  List<Map<String, dynamic>> _appointments = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppointments();
+  }
+
+  Future<void> _loadAppointments() async {
+    try {
+      final response = await supabase
+          .from('appointments')
+          .select()
+          .eq('status', 'scheduled')
+          .order('appointment_date', ascending: true)
+          .order('appointment_time', ascending: true);
+
+      setState(() {
+        _appointments = List<Map<String, dynamic>>.from(response);
+        _loading = false;
+      });
+    } catch (e) {
+      debugPrint("Erro: $e");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Menu lateral da aplicação
       drawer: LateralMenuEmployee(),
-
-      // Cor de fundo principal
       backgroundColor: const Color(0xFF121212),
 
-      // Barra superior
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFF1C1C1C),
-
-        // Cor do ícone do menu
         iconTheme: const IconThemeData(
           color: Color(0xFFD6B35A),
         ),
-
-        // Centraliza o título
         centerTitle: true,
-
-        // Nome da barbearia
         title: const Text(
           "LIMINAL BARBERSHOP",
           style: TextStyle(
@@ -43,21 +67,14 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
         ),
       ),
 
-      // Corpo da tela
       body: Container(
         width: double.infinity,
-
-        // Imagem de fundo da tela
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
               "assets/images/barber_backrooms.jpg",
             ),
-
-            // Faz a imagem ocupar toda a tela
             fit: BoxFit.cover,
-
-            // Escurece a imagem para melhorar a leitura
             colorFilter: ColorFilter.mode(
               Colors.black87,
               BlendMode.darken,
@@ -65,42 +82,30 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
           ),
         ),
 
-        // Centraliza o painel
         child: Center(
           child: Container(
-            // Largura fixa do painel
             width: 650,
-
-            // Espaçamento interno
             padding: const EdgeInsets.all(35),
-
-            // Estilo do painel
             decoration: BoxDecoration(
               color: const Color(0xFF1E1E1E).withValues(alpha: .92),
-
               borderRadius: BorderRadius.circular(20),
-
               border: Border.all(
                 color: const Color(0xFFD6B35A),
                 width: 1.5,
               ),
             ),
 
-            // Conteúdo do painel
-            child: const Column(
-              mainAxisSize: MainAxisSize.min,
+            child: Column(
               children: [
-                // Ícone representando a barbearia
-                Icon(
+                const Icon(
                   Icons.content_cut,
                   size: 80,
                   color: Color(0xFFD6B35A),
                 ),
 
-                SizedBox(height: 25),
+                const SizedBox(height: 20),
 
-                // Título da tela
-                Text(
+                const Text(
                   "Painel do Funcionário",
                   style: TextStyle(
                     color: Colors.white,
@@ -109,23 +114,130 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                   ),
                 ),
 
-                SizedBox(height: 15),
+                const SizedBox(height: 20),
 
-                // Texto explicativo
-                Card(
-                  color: Color(0xFF1C1C1C),
-                  child: Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Text(
-                      "Bem-vindo ao painel do funcionário da Liminal Barbershop! Aqui você pode gerenciar seus horários, visualizar agendamentos e muito mais. Use o menu lateral para navegar pelas diferentes funcionalidades.",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
+                if (_loading)
+                  const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFD6B35A),
                       ),
-                      textAlign: TextAlign.center,
+                    ),
+                  )
+                else if (_appointments.isEmpty)
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        "Nenhum agendamento encontrado.",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _appointments.length,
+                      itemBuilder: (context, index) {
+                        final appointment = _appointments[index];
+
+                        return Card(
+                          color: const Color(0xFF1C1C1C),
+                          margin: const EdgeInsets.only(bottom: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            side: const BorderSide(
+                              color: Color(0xFFD6B35A),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  appointment['customer_name'],
+                                  style: const TextStyle(
+                                    color: Color(0xFFD6B35A),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                Text(
+                                  "Profissional: ${appointment['professional_name']}",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Serviço: ${appointment['service_description']}",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Telefone: ${appointment['customer_phone']}",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Data: ${appointment['appointment_date']}",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Horário: ${appointment['appointment_time']}",
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Valor: R\$ ${appointment['service_price']}",
+                                  style: const TextStyle(
+                                    color: Colors.greenAccent,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 5),
+
+                                Text(
+                                  "Status: ${appointment['status']}",
+                                  style: const TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ),
               ],
             ),
           ),

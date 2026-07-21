@@ -33,15 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          /// Background da tela
-          Positioned.fill(
-            child: Image.asset(
-              // OBS.: O Image.asset não exibe arquivos MP4.
-              // Para vídeos utilize o pacote video_player.
-              "assets/videos/Login.mp4",
-              fit: BoxFit.cover,
-            ),
-          ),
+         
 
           /// Camada escura sobre o fundo para melhorar a leitura
           Positioned.fill(

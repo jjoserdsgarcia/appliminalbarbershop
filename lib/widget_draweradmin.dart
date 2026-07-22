@@ -1,4 +1,5 @@
 import 'package:appliminalbarbershop/home_screen_employee.dart';
+import 'package:appliminalbarbershop/login_screen.dart';
 import 'package:appliminalbarbershop/services_showroom.dart';
 import 'package:flutter/material.dart';
 
@@ -143,7 +144,12 @@ class LateralMenuEmployee extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => LoginScreen(),
+                ),
+              );
             },
           ),
 

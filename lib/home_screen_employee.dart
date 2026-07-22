@@ -187,13 +187,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
 
                                 const SizedBox(height: 5),
 
-                                Text(
-                                  "Telefone: ${appointment['customer_phone']}",
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                  ),
-                                ),
-
                                 const SizedBox(height: 5),
 
                                 Text(

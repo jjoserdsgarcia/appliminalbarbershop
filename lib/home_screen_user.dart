@@ -76,7 +76,7 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
 
             // Subtítulo
             Text(
-              "Escolha um serviço",
+              "Serviços",
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 13,
